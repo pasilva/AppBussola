@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<title>Bussola</title>
+	<head>
+		<style>
+			#compass {
+
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				z-index: 1;
+			}
+			#needle {
+
+				position: absolute;
+				top: 8px;
+				left: 98px;
+				z-index: 10;
+			}
+		</style>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		<script src="jqRotate/jqRotate.js"></script>
+
+<script>
+	document.addEventListener("deviceready", onDeviceReady, false); /
+
+	function onDeviceReady() { 
+		startCompass(); 
+	}
+
+	function startCompass() {
+
+		var options = {
+			frequency : 50 
+		};
+
+		navigator.compass.watchHeading(onSuccess, onError, options); 
+	}
+
+	function onSuccess(heading) {
+
+		$("#needle").rotate(-heading.magneticHeading); 
+	}
+
+	function onError(compassError) { 
+		alert('Compass error: ' + compassError.code); 
+	}
+</script>
+
+	</head>
+	<body>
+		<img src="compass.png" id="compass">
+		<img src="needle.png" id="needle">
+	</body>
+</html>
